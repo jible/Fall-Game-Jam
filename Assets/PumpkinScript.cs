@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,12 +21,12 @@ public class PumpkinScript : MonoBehaviour
 
     public void removeTri( int index)
     {
-        verticies.RemoveAt(triangles[index] + 2);
-        verticies.RemoveAt(triangles[index + 1]);
-        verticies.RemoveAt(triangles[index]);
+        verticies.RemoveAt(triangles[index * 3 + 2]);
+        verticies.RemoveAt(triangles[index * 3 + 1]);
+        verticies.RemoveAt(triangles[index * 3]);
         triangles.RemoveAt(index);
         
-        mesh.triangles =triangles.ToArray();
+        mesh.triangles = triangles.ToArray();
         mesh.vertices = verticies.ToArray();
     }
 
