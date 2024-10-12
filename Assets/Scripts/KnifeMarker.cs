@@ -42,10 +42,10 @@ public class KnifeMarker : MonoBehaviour
                 AddPointToLine(hit.point);
             }
 
-            // If the mouse button is released, stop drawing
+            // If the mouse button is released, stop drawing and erase the lines
             if (Input.GetMouseButtonUp(0))
             {
-                StopDrawing();
+                StopDrawingAndErase();
             }
         }
     }
@@ -77,10 +77,16 @@ public class KnifeMarker : MonoBehaviour
         currentLineRenderer.SetPosition(points.Count - 1, newPoint);
     }
 
-    // Stop drawing: Reset the state when the user releases the mouse button
-    private void StopDrawing()
+    // Stop drawing and erase all points: Reset the state and destroy the line renderer
+    private void StopDrawingAndErase()
     {
         isDrawing = false;
         points.Clear(); // Clear points for the next line
+
+        if (currentLineRenderer != null)
+        {
+            // Destroy the current line renderer GameObject to erase the drawing
+            Destroy(currentLineRenderer.gameObject);
+        }
     }
 }
