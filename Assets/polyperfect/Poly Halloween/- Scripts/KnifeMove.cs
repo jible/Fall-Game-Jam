@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace Polyperfect.Universal
+public class KnifeMove : MonoBehaviour
 {
      public Camera mainCamera; // Drag the main camera here in the Inspector
     public float distanceFromCamera = 5.0f; // How far the knife is from the camera
@@ -39,4 +41,3 @@ namespace Polyperfect.Universal
         transform.rotation = Quaternion.LookRotation(ray.direction);
     }
 }
-  
