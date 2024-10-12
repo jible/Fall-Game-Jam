@@ -4,49 +4,83 @@ using UnityEngine;
 
 public class KnifeMarker : MonoBehaviour
 {
-     public Camera mainCamera; // Drag the main camera here in the Inspector
-    public float distanceFromCamera = 5.0f; // Distance from the camera if nothing is hit
-    public LayerMask markerLayer; // Set this to the layer of your prefab object(s)
-    public GameObject markerPrefab; // Assign the knife or marker object
+    public Camera mainCamera; // Assign the main camera
+    public LayerMask drawableLayer; // Layer of the object you want to draw on
+    public GameObject markerPrefab; // Knife or marker object
+    public Material lineMaterial; // Material to use for the drawn lines
 
-    private void Start()
-    {
-        // Hide the default system cursor
-        Cursor.visible = false;
-    }
+    private List<Vector3> points = new List<Vector3>(); // Stores points where the knife draws
+    private LineRenderer currentLineRenderer; // The line renderer to draw the lines
+    private bool isDrawing = false; // Is the knife currently drawing?
 
     private void Update()
     {
-        // Get mouse position in screen space
-        Vector3 mousePosition = Input.mousePosition;
-
-        // Convert mouse position to a ray
-        Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-
+        // Get the mouse position and convert it into a ray
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        // Check if the ray hits any object in the specified marker layer
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, markerLayer))
+        // Check if the ray hits the object in the drawable layer
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, drawableLayer))
         {
-            // Position the knife/marker at the hit point on the prefab object
+            // Position the marker (knife) at the hit point on the object's surface
             markerPrefab.transform.position = hit.point;
 
-            // Optionally, adjust the rotation to ensure the knife is correctly aligned
-            // Align with the normal of the surface where it hit
-            markerPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+            // Lock the X-axis rotation to 90 degrees for the marker
+            Vector3 normal = hit.normal;
+            Quaternion targetRotation = Quaternion.FromToRotation(Vector3.up, normal);
+            markerPrefab.transform.rotation = Quaternion.Euler(90, targetRotation.eulerAngles.y, targetRotation.eulerAngles.z);
 
-            // Fix the x-axis rotation to 90 degrees (or any specific rotation you want)
-            Vector3 knifeEuler = markerPrefab.transform.rotation.eulerAngles;
-            markerPrefab.transform.rotation = Quaternion.Euler(90, knifeEuler.y, knifeEuler.z);
-        }
-        else
-        {
-            // If the ray doesn't hit the object, position the knife at a default location (in front of the camera)
-            Vector3 targetPosition = ray.GetPoint(distanceFromCamera);
-            markerPrefab.transform.position = targetPosition;
+            // Check if the mouse button is pressed to start drawing
+            if (Input.GetMouseButtonDown(0))
+            {
+                StartDrawing(hit.point);
+            }
 
-            // Keep the fixed rotation in front of the camera
-            markerPrefab.transform.rotation = Quaternion.Euler(90, 0, 0);
+            // If the mouse button is held down, continue drawing
+            if (Input.GetMouseButton(0) && isDrawing)
+            {
+                AddPointToLine(hit.point);
+            }
+
+            // If the mouse button is released, stop drawing
+            if (Input.GetMouseButtonUp(0))
+            {
+                StopDrawing();
+            }
         }
+    }
+
+    // Start drawing: Initialize a new line renderer when the user clicks
+    private void StartDrawing(Vector3 startPoint)
+    {
+        isDrawing = true;
+
+        // Create a new GameObject to hold the line renderer
+        GameObject lineObj = new GameObject("DrawnLine");
+        currentLineRenderer = lineObj.AddComponent<LineRenderer>();
+
+        // Configure the line renderer
+        currentLineRenderer.material = lineMaterial;
+        currentLineRenderer.startWidth = 0.02f; // Adjust the width as needed
+        currentLineRenderer.endWidth = 0.02f;   // Adjust the width as needed
+        currentLineRenderer.positionCount = 0;  // No points initially
+
+        // Add the first point
+        AddPointToLine(startPoint);
+    }
+
+    // Add a point to the current line
+    private void AddPointToLine(Vector3 newPoint)
+    {
+        points.Add(newPoint);
+        currentLineRenderer.positionCount = points.Count;
+        currentLineRenderer.SetPosition(points.Count - 1, newPoint);
+    }
+
+    // Stop drawing: Reset the state when the user releases the mouse button
+    private void StopDrawing()
+    {
+        isDrawing = false;
+        points.Clear(); // Clear points for the next line
     }
 }
