@@ -282,6 +282,7 @@ MonoBehaviour:
   canvases:
   - {fileID: 1457450407}
   - {fileID: 640819906}
+  - {fileID: 64743620}
 --- !u!114 &94877222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +326,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 94877223}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 94877221}
+        m_TargetAssemblyTypeName: buttonBehavior, Assembly-CSharp
+        m_MethodName: ToggleCanvasVisibility
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &94877223
 MonoBehaviour:
   m_ObjectHideFlags: 0
