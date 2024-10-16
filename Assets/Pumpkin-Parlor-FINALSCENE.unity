@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &64743618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -953,7 +953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &640819904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2000,7 +2000,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'Prefab Credits:
+
+    Pumpkin - POLYPERFECT
+
+    Knife - ASTRALMESH
+
+    Textures
+    - Awessets'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2260,11 +2267,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 674123691}
-  targetImage: {fileID: 285206405}
+  displayImage: {fileID: 285206405}
   spriteList:
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 08bd0975d8c35c748a612638659e71ee, type: 3}
+  - {fileID: 21300000, guid: 0f9d116c294c74c49b1cd470a2b87c6b, type: 3}
+  - {fileID: 21300000, guid: db22bca74a28b704aafec7820de618de, type: 3}
+  - {fileID: 21300000, guid: 248419c6a22b4724faad483602bdf352, type: 3}
+  - {fileID: 21300000, guid: db7fb639e0bf2c947a9a2319deef4f35, type: 3}
+  - {fileID: 21300000, guid: 66198847219a5c64a92dc0e5aa574508, type: 3}
+  - {fileID: 21300000, guid: 8f5cac54747f70e41bd8ab2331ea76ce, type: 3}
+  - {fileID: 21300000, guid: c0f92f9644b3d40488a12c26e040e756, type: 3}
+  - {fileID: 21300000, guid: 66cca10796ca3e641aec71e0d01da272, type: 3}
+  - {fileID: 21300000, guid: 79419972f2c69a44f8e01b994dc7aeab, type: 3}
   switchDelay: 0.5
-  timeRemaining: 30
+  initialTime: 15
 --- !u!1 &1457450404
 GameObject:
   m_ObjectHideFlags: 0
@@ -2283,7 +2299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1457450405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2696,7 +2712,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'Made By:
+
+    James
+
+    Carter
+
+    Phoebe'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
